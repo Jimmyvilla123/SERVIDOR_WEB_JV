@@ -1,0 +1,37 @@
+
+import time
+import network
+sensor1 = machine.Pin(12, machine.Pin. IN)
+sta_if=network.WLAN(network.STA_IF)
+sta_if.active(True)
+sta_if.connect('MARICITA', 'm2Ric8t2')
+sta_if.isconnected()
+sta_if.ifconfig()
+time.sleep(5)
+
+client=MQTTClient("umqtt_led","maqiatto.com",1883,"pasmayj@gmail.com","sanjose1998")
+
+client.connect()
+
+
+#ciclo de repeticion 
+while True:
+# funcion publicar datos     
+    if sensor1.value()==1:
+       sensor1.on()
+       client.publish("pasmayj@gmail.com/t2",'sensor high='+str(sensor1.value()))
+       print('sensor high:' +str(sensor1.value()))
+       time.sleep(3)
+    else:
+       sensor1.off()
+       client.publish("pasmayj@gmail.com/t2",'sensor low='+str(sensor1.value()))
+       print('sensor low:' +str(sensor1.value()))
+       time.sleep(3)
+# funcion  suscribirse
+def sub_cb(topic, msg):
+      print((topic, msg))
+      
+while 1:      
+    client.set_callback(sub_cb)
+    client.subscribe(b"pasmayj@gmail.com/t1")
+    client.wait_msg()

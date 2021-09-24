@@ -4,8 +4,8 @@ function LED1_On() {
 	//alert("led on");
 	console.log("led on");
 	//document.getElementById("sensor").innerHTML="led on";
-	message = new Paho.MQTT.Message("ON");
-    	message.destinationName = "lfrenteriax@hotmail.com/test1";
+	message = new Paho.MQTT.Message("YA SE RESIVIO EL MENSAJE APLATANDO EL BOTON");
+    	message.destinationName = "jimmyvilla58@gmail.com/T1";
     	client.send(message);
   
 }
@@ -13,10 +13,20 @@ function LED1_Off(){
 	//alert("led off");
 	console.log("led off");
 	message = new Paho.MQTT.Message("OFF");
-    	message.destinationName = "lfrenteriax@hotmail.com/test1";
+    	message.destinationName = "jimmyvilla58@gmail.com/T1";
     	client.send(message);
 	//document.getElementById("sensor").innerHTML="led off";
 }
+
+function LED1_One1(){  
+  //alert("led off");
+  console.log("SE PRESIONO EL BOTON ALERTA");
+  message = new Paho.MQTT.Message("EL BOTON ALERTA ASIDOACTIVADO");
+      message.destinationName = "jimmyvilla58@gmail.com/T1";
+      client.send(message);
+  //document.getElementById("sensor").innerHTML="led off";
+}
+
 
 
 
@@ -33,8 +43,8 @@ function LED1_Off(){
   client.onMessageArrived = onMessageArrived;
   var options = {
    useSSL: false,
-    userName: "lfrenteriax@hotmail.com",
-    password: "lfrenteriax",
+    userName: "jimmyvilla58@gmail.com",
+    password: "Matematicas123",
     onSuccess:onConnect,
     onFailure:doFail
   }
@@ -47,9 +57,9 @@ function LED1_Off(){
     // Once a connection has been made, make a subscription and send a message.
     console.log("Conectado...");
 	
-    client.subscribe("lfrenteriax@hotmail.com/test");
-    message = new Paho.MQTT.Message("hola desde la web");
-    message.destinationName = "lfrenteriax@hotmail.com/test1";
+    client.subscribe("jimmyvilla58@gmail.com/T2");  
+    message = new Paho.MQTT.Message("hola desde la web"); //SE VA A PLUBICAR ESTE MENSAJE EN T1 DE MI SERVIDOR 
+    message.destinationName = "jimmyvilla58@gmail.com/T1";
     client.send(message);
 	
   }
